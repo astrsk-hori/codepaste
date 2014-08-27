@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @page.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= markdown @page.body %>
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= @page.tag %>
+</p>
+
+<p>
+  <strong>User name:</strong>
+  <%= @page.user_name %>
+</p>
+
+<%= link_to 'Edit', edit_page_path(@page) %> |
+<%= link_to 'Back', pages_path %>

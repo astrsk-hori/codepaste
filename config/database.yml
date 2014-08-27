@@ -4,7 +4,7 @@ development: &development
   database: dev_codepaste
   host: localhost
   username: root
-  password: rootpassword
+  password: rootpasswd
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
