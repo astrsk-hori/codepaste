@@ -19,4 +19,13 @@ module ApplicationHelper
     )
     markdown.render(text).html_safe
   end
+
+  def view_tags(tags=[])
+    result = ''
+    tags.each do |v|
+      #result += button_to v, {class: "btn btn-primary btn-xs"}
+      result += content_tag :button, v, {class: "btn btn-success btn-xs"}
+    end
+    result.html_safe
+  end
 end

@@ -1,4 +1,4 @@
-<%= form_for(@page) do |f| %>
+<%= form_for(@page, {role: 'form'}) do |f| %>
   <% if @page.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
@@ -13,19 +13,19 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
+    <%= f.text_field :title, class: "form-control"%>
   </div>
   <div class="field">
     <%= f.label :tag %><br>
-    <%= f.text_field :tag %>
+    <%= f.text_field :tag, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :body %><br>
+    <%= f.text_area :body, rows: "20", class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :user_name %><br>
-    <%= f.text_field :user_name %>
+    <%= f.text_field :user_name, class: "form-control" %>
   </div>
   <div class="actions">
     <%= f.submit %>

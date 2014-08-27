@@ -1,24 +1,24 @@
-<p id="notice"><%= notice %></p>
+<div id="markdown">
+  <p>
+    <%= markdown "# #{@page.title}" %>
+  </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @page.title %>
-</p>
+  <p>
+    <%= markdown @page.body %>
+  </p>
+</div>
 
-<p>
-  <strong>Body:</strong>
-  <%= markdown @page.body %>
-</p>
+<div>
+  <p>
+    <strong>Tag:</strong>
+    <%= view_tags @page.tag.split(',') %>
+  </p>
 
-<p>
-  <strong>Tag:</strong>
-  <%= @page.tag %>
-</p>
+  <p>
+    <strong>User name:</strong>
+    <%= @page.user_name %>
+  </p>
+</div>
 
-<p>
-  <strong>User name:</strong>
-  <%= @page.user_name %>
-</p>
-
-<%= link_to 'Edit', edit_page_path(@page) %> |
-<%= link_to 'Back', pages_path %>
+<%= link_to 'Edit', edit_page_path(@page), {class: "btn btn-primary active",  role: "button"} %>
+<%= link_to 'Back', pages_path, {class: "btn btn-default active",  role: "button"} %>
