@@ -1,4 +1,6 @@
 <%= link_to 'New Page', new_page_path, {class: "btn btn-primary active",  role: "button"} %>
+<br />
+<%= paginate(@pages) %>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -22,5 +24,6 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate(@pages) %>
 
 <br>
