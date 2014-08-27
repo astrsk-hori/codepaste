@@ -28,6 +28,8 @@ gem 'active_decorator'
 gem 'meta-tags'
 # markdown
 gem "redcarpet", "~> 2.3.0"
+# Syntax highlighting
+gem 'coderay'
 
 group :development, :test do
   gem 'capybara', '2.1.0'
