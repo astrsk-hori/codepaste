@@ -58,6 +58,7 @@
           <% if user_signed_in? %>
             <ul class="nav navbar-nav">
               <li><%= link_to "list", pages_path  %></li>
+              <li><%= link_to "CreateUser", new_user_registration_path  %></li>
             </ul>
           <% end %>
         </div>
