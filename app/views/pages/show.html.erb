@@ -16,7 +16,7 @@
 
   <p>
     <strong>User name:</strong>
-    <%= @page.user_name %>
+    <%= @page.user_name.presence || current_user.name %>
   </p>
 </div>
 
