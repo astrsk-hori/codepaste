@@ -20,7 +20,7 @@
         <td><%= view_tags page.tag.split(',') if page.tag %></td>
         <td><%= page.user_name.presence || current_user.name %></td>
         <td><%= link_to 'Show', page %></td>
-        <td><%= link_to 'Edit', edit_page_path(page) %></td>
+        <td><%= link_to 'Edit', edit_page_path(page) if page.user_id == current_user.id %></td>
         <td><%= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' } if page.user_id == current_user.id %></td>
       </tr>
     <% end %>

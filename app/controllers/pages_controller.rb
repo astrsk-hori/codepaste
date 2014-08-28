@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
+  before_action :is_my_page?, only: [:edit, :update, :destroy]
 
   # GET /pages
   # GET /pages.json
@@ -71,5 +72,12 @@ class PagesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
       params.require(:page).permit(:title, :body, :tag, :user_name)
+    end
+
+    def is_my_page?
+      unless @page.user_id == current_user.id
+        flash[:error] =  "permission denied."
+        redirect_to pages_path
+      end
     end
 end
