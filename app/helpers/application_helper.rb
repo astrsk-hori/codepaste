@@ -23,8 +23,8 @@ module ApplicationHelper
   def view_tags(tags=[])
     result = ''
     tags.each do |v|
-      #result += button_to v, {class: "btn btn-primary btn-xs"}
-      result += content_tag :button, v, {class: "btn btn-success btn-xs"}
+      bt = content_tag :button, v, {class: "btn btn-success btn-xs"}
+      result += content_tag :span, bt
     end
     result.html_safe
   end
