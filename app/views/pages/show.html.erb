@@ -20,5 +20,5 @@
   </p>
 </div>
 
-<%= link_to 'Edit', edit_page_path(@page), {class: "btn btn-primary active",  role: "button"} %>
+<%= link_to 'Edit', edit_page_path(@page), {class: "btn btn-primary active",  role: "button"} if current_user.id == @page.user_id %>
 <%= link_to 'Back', pages_path, {class: "btn btn-default active",  role: "button"} %>
