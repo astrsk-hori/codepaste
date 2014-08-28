@@ -25,6 +25,7 @@ class PagesController < ApplicationController
   # POST /pages.json
   def create
     @page = Page.new(page_params)
+    @page.user_id = current_user.id
 
     respond_to do |format|
       if @page.save
