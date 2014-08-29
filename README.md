@@ -4,6 +4,11 @@ codepaste
 コードやログなどを貼り付けて共有する。markdownとハイライトが使える
 社内等の使い捨てgistのようなもの
 
+## ruby
+```
+ruby 2.1.2
+```
+
 ## install
 
 ```
