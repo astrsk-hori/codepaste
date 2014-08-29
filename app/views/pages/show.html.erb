@@ -1,4 +1,17 @@
+<div>
+  <span class="col-md-8">
+    <p>
+      <%= view_tags @page.tag.split(',') %>
+    </p>
+  </span>
+  <span class="text-right">
+    <p>
+      <%= @page.user_name.presence || current_user.name %>
+    </p>
+  </span>
+</div>
 <div id="markdown">
+  <hr>
   <p>
     <%= markdown "# #{@page.title}" %>
   </p>
@@ -7,18 +20,10 @@
     <%= markdown @page.body %>
   </p>
 </div>
-
-<div>
-  <p>
-    <strong>Tag:</strong>
-    <%= view_tags @page.tag.split(',') %>
-  </p>
-
-  <p>
-    <strong>User name:</strong>
-    <%= @page.user_name.presence || current_user.name %>
-  </p>
-</div>
+<br />
+<br />
 
 <%= link_to 'Edit', edit_page_path(@page), {class: "btn btn-primary active",  role: "button"} if current_user.id == @page.user_id %>
-<%= link_to 'Back', pages_path, {class: "btn btn-default active",  role: "button"} %>
+<%= link_to 'Back To List.', pages_path, {class: "btn btn-default active",  role: "button"} %>
+<br />
+<br />

@@ -4,7 +4,6 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Id</th>
       <th>Title</th>
       <th>Tag</th>
       <th>User name</th>
@@ -15,11 +14,13 @@
   <tbody>
     <% @pages.each do |page| %>
       <tr>
-        <td><%= page.id %></td>
-        <td><%= page.title %></td>
+        <td>
+          <strong>
+            <%= link_to page.title, page %>
+          </strong>
+        </td>
         <td><%= view_tags page.tag.split(',') if page.tag %></td>
         <td><%= page.user_name.presence || current_user.name %></td>
-        <td><%= link_to 'Show', page %></td>
         <td><%= link_to 'Edit', edit_page_path(page) if page.user_id == current_user.id %></td>
         <td><%= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' } if page.user_id == current_user.id %></td>
       </tr>
