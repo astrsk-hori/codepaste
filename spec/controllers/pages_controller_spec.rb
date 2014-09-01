@@ -23,12 +23,17 @@ describe PagesController do
   # This should return the minimal set of attributes required to create a valid
   # Page. As you add validations to Page, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "title" => "MyString", "body" => "MyString" } }
+  let(:user){ FactoryGirl.create(:user)}
+  let(:valid_attributes) { { "user_id"=>user.id, "title" => "MyString", "body" => "MyString" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # PagesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
+
+  before do
+    login_user user
+  end
 
   describe "GET index" do
     it "assigns all pages as @pages" do

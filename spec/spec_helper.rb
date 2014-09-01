@@ -63,6 +63,7 @@ RSpec.configure do |config|
   # config.order = "random"
 
   config.include Devise::TestHelpers, type: :controller
+  config.include ControllerMacros, type: :controller
   config.include Capybara::DSL, type: :request
   config.include Capybara::RSpecMatchers, type: :request
   not_trancation_tables = []
@@ -89,7 +90,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    I18n.locale = 'ja'
+    I18n.locale = 'en'
   end
 
   config.before(:each) do
