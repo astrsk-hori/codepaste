@@ -10,7 +10,8 @@ class CommentsController < ApplicationController
         format.html { redirect_to page_path(@comment.page_id), notice: 'comment was successfully created.' }
         format.json { render action: 'show', status: :created, location: @comment }
       else
-        format.html { render action: 'new' }
+        flash[:error] =  "comment was Error."
+        format.html { redirect_to page_path(@comment.page_id) }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
