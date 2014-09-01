@@ -3,6 +3,8 @@ module ApplicationHelper
     def block_code(code, language)
       language = language || :html
       CodeRay.scan(code, language).div(line_numbers: :table)
+    rescue
+      CodeRay.scan(code, :html).div(line_numbers: :table)
     end
   end
 
