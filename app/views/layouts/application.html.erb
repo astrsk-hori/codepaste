@@ -45,7 +45,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Codepaste</a>
+        <%= link_to "Codepaste", pages_path, class: "navbar-brand"  %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <p class="navbar-text pull-right">
           <% if user_signed_in? %>
@@ -57,7 +57,7 @@
           <% end %>
           <% if user_signed_in? %>
             <ul class="nav navbar-nav">
-              <li><%= link_to "list", pages_path  %></li>
+              <li><%= link_to "New Page", new_page_path  %></li>
               <li><%= link_to "CreateUser", new_user_registration_path  %></li>
             </ul>
           <% end %>

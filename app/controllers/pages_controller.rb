@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.page(params[:page]).order('id desc')
+    @pages = Page.includes(:user).page(params[:page]).order('id desc')
   end
 
   # GET /pages/1

@@ -6,7 +6,7 @@
   <div><%= f.label :name %><br />
   <%= f.text_field :name, autofocus: true, class: "form-control" %></div>
 
-  <div><%= f.label :email %><br />
+<div><%= f.label :email %> <i>(You need to register your e-mail address to Gravatar. Please choose the registration or this if you have not finished the registration yet. gravatar.com.)</i><br />
   <%= f.email_field :email, autofocus: true, class: "form-control" %></div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
