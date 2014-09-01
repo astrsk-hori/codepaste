@@ -22,6 +22,25 @@
 </div>
 <br />
 <br />
+<% @comments.each do |v| %>
+  <hr>
+  <div class="clearfix">
+    <div class=".pull-left">
+      <%= markdown v.comment %>
+    </div>
+    <br />
+    <br />
+    <div class=".pull-left">
+      <strong><%= v.user.name %>.</strong> <%= v.created_at.to_time.strftime('%Y/%m/%d %H:%M:%S') %>
+    </div>
+  </div>
+<% end %>
+<br />
+<br />
+<hr>
+<%= render 'comment_form' %>
+<br />
+<br />
 
 <%= link_to 'Edit', edit_page_path(@page), {class: "btn btn-primary active",  role: "button"} if current_user.id == @page.user_id %>
 <%= link_to 'Back To List.', pages_path, {class: "btn btn-default active",  role: "button"} %>

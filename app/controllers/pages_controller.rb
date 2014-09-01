@@ -11,6 +11,8 @@ class PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.json
   def show
+    @comments = @page.comments.includes(:user)
+    @comment  = Comment.new(page_id: @page.id)
   end
 
   # GET /pages/new
