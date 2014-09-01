@@ -6,7 +6,12 @@
   </span>
   <span class="text-right">
     <p>
-      <%= @page.user_name.presence || current_user.name %>
+      <% if @page.user_id == current_user.id %>
+        <%= link_to 'Destroy', @page, method: :delete, data: { confirm: 'Are you sure?' } %> |
+        <%= link_to 'Edit', edit_page_path(@page), {role: "button"} %>
+      <% else %>
+        <%= gravatar_for(@page.user) %>
+      <% end %>
     </p>
   </span>
 </div>
@@ -42,7 +47,6 @@
 <br />
 <br />
 
-<%= link_to 'Edit', edit_page_path(@page), {class: "btn btn-primary active",  role: "button"} if current_user.id == @page.user_id %>
 <%= link_to 'Back To List.', pages_path, {class: "btn btn-default active",  role: "button"} %>
 <br />
 <br />
