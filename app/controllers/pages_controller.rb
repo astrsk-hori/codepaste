@@ -81,7 +81,7 @@ class PagesController < ApplicationController
     end
 
     def is_my_page?
-      if @page.user.present? && @page.user_id == current_user.id
+      if @page.user.present? && @page.user_id != current_user.id
         flash[:error] =  "permission denied."
         redirect_to pages_path
       end
