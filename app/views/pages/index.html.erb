@@ -21,7 +21,9 @@
       <tr>
         <td class="page_title">
           <strong>
-            <%= link_to page.title, page, class: 'jump_to' %>
+            <%= link_to page, class: 'jump_to' do %>
+              <%= page.title %>&nbsp;&nbsp;<span class="badge"><%= page.comments.size unless page.comments.size == 0 %></span>
+            <% end %>
           </strong>
         </td>
         <td><%= view_tags page.tag.split(',') if page.tag %></td>

@@ -8,7 +8,7 @@ class PagesController < ApplicationController
     form_keyword = params[:page].present? ? params[:page][:body] : nil
     keyword = form_keyword.gsub(' ','%') if form_keyword.present?
 
-    @pages = Page.search(keyword).includes(:user).page(params[:page_no]).order('id desc')
+    @pages = Page.search(keyword).includes(:user).includes(:comments).page(params[:page_no]).order('id desc')
     @search_form = Page.new(body: form_keyword)
   end
 
