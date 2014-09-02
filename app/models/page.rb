@@ -4,4 +4,24 @@ class Page < ActiveRecord::Base
 
   validates_presence_of :title
   validates_presence_of :body
+
+  scope :search_body, ->(keyword) {
+    if keyword.present?
+      where "body like :keyword", keyword: "%#{keyword}%"
+    else
+      all
+    end
+  }
+
+  scope :search_tag, ->(keyword) {
+    if keyword.present?
+      where "tag like :keyword", keyword: "%#{keyword}%"
+    else
+      all
+    end
+  }
+
+  scope :search, -> (keyword) {
+    where "body like :keyword or tag like :keyword", keyword: "%#{keyword}%"
+  }
 end

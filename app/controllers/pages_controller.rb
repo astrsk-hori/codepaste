@@ -5,7 +5,11 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.includes(:user).page(params[:page]).order('id desc')
+    form_keyword = params[:page].present? ? params[:page][:body] : nil
+    keyword = form_keyword.gsub(' ','%') if form_keyword.present?
+
+    @pages = Page.search(keyword).includes(:user).page(params[:page_no]).order('id desc')
+    @search_form = Page.new(body: form_keyword)
   end
 
   # GET /pages/1
