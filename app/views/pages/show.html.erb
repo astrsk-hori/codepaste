@@ -36,7 +36,7 @@
     <br />
     <br />
     <div class=".pull-left">
-      <%= gravatar_for(v.user) %>&nbsp;&nbsp;<strong><%= v.user.name %></strong>&nbsp; <%= v.created_at.to_time.strftime('%Y/%m/%d %H:%M:%S') %>
+      <%= gravatar_for(v.user) %>&nbsp;&nbsp;<strong><%= v.user.try(:name)||'deleted_user' %></strong>&nbsp; <%= v.created_at.to_time.strftime('%Y/%m/%d %H:%M:%S') %>
     </div>
   </div>
 <% end %>
