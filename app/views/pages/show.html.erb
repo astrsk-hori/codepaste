@@ -36,6 +36,7 @@
     <br />
     <br />
     <div class=".pull-left">
+      <%= link_to 'Destroy', page_comments_path(page_id: @page.id, id: v.id), method: :delete, data: { confirm: 'Are you sure?' } %>&nbsp;&nbsp;
       <%= gravatar_for(v.user) %>&nbsp;&nbsp;<strong><%= v.user.try(:name)||'deleted_user' %></strong>&nbsp; <%= v.created_at.to_time.strftime('%Y/%m/%d %H:%M:%S') %>
     </div>
   </div>

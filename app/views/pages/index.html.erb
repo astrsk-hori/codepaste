@@ -22,7 +22,7 @@
         <td class="page_title">
           <strong>
             <%= link_to page, class: 'jump_to' do %>
-              <%= page.title %>&nbsp;&nbsp;<span class="badge"><%= page.comments.size unless page.comments.size == 0 %></span>
+              <%= page.title %>&nbsp;&nbsp;<span class="badge alert-info"><%= page.comments.size unless page.comments.size == 0 %></span>
             <% end %>
           </strong>
         </td>

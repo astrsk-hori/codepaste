@@ -34,9 +34,10 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
+    @comment = Comment.where(page_id: params[:page_id]).find_by(id: params[:id])
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url }
+      format.html { redirect_to page_path(id: params[:page_id]) }
       format.json { head :no_content }
     end
   end
@@ -49,7 +50,7 @@ class CommentsController < ApplicationController
     end
 
     def is_my_comment?
-      unless @comment.user_id == current_user.id
+      if @comment.user.present? && @comment.user_id != current_user.id
         flash[:error] =  "permission denied."
         redirect_to comments_path
       end

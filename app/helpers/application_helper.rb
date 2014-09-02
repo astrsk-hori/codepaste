@@ -4,7 +4,7 @@ module ApplicationHelper
       language = language || :html
       CodeRay.scan(code, language).div
     rescue
-      CodeRay.scan(code, :html).div(line_numbers: :table)
+      CodeRay.scan(code, :html).div
     end
   end
 
