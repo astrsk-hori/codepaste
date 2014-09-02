@@ -25,7 +25,7 @@ module ApplicationHelper
   def view_tags(tags=[])
     result = ''
     tags.each do |v|
-      bt = content_tag :button, v, {class: "btn btn-success btn-xs"}
+      bt = content_tag :button, v, {class: "target_tag btn btn-success btn-xs"}
       result += content_tag :span, bt
     end
     result.html_safe
