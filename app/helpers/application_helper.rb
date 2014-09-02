@@ -2,7 +2,7 @@ module ApplicationHelper
   class SyntaxHighlight < Redcarpet::Render::HTML
     def block_code(code, language)
       language = language || :html
-      CodeRay.scan(code, language).div(line_numbers: :table)
+      CodeRay.scan(code, language).div
     rescue
       CodeRay.scan(code, :html).div(line_numbers: :table)
     end
@@ -19,7 +19,8 @@ module ApplicationHelper
       superscript: true
 
     )
-    markdown.render(text).html_safe
+    # Redcarpetのtableにclass指定できないので生成されたHTMLで無理やりclass付与
+    markdown.render(text).gsub('table', 'table class="table table-hover table-bordered"').html_safe
   end
 
   def view_tags(tags=[])
