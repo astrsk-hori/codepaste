@@ -48,13 +48,14 @@
         <%= link_to "Codepaste", pages_path, class: "navbar-brand"  %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <p class="navbar-text pull-right">
-          <% if user_signed_in? %>
-            <strong><%= gravatar_for(current_user) %></strong>
-            <%= link_to 'Settings', edit_user_registration_path, :class => 'navbar-link' %> |
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-          <% else %>
-            <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-          <% end %>
+            <% if user_signed_in? %>
+              <%= gravatar_for(current_user) %>
+              <%= link_to 'Settings', edit_user_registration_path, :class => 'navbar-link' %> |
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+            <% else %>
+              <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+            <% end %>
+          </p>
           <% if user_signed_in? %>
             <ul class="nav navbar-nav">
               <li><%= link_to "New Page", new_page_path  %></li>

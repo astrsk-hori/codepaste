@@ -34,12 +34,3 @@
 </table>
 <%= paginate(@pages) %>
 <br>
-<script type="text/javascript">
-  $(function() {
-    $('#search_result').on('click', '.target_tag', function(){
-      $('#page_body').val($(this).text());
-      $('#new_page').submit();
-    });
-  });
-</script>
-
