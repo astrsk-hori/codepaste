@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140903035801) do
+ActiveRecord::Schema.define(version: 20140903053056) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id",    null: false
@@ -24,13 +24,14 @@ ActiveRecord::Schema.define(version: 20140903035801) do
   add_index "comments", ["page_id"], name: "comments_idx1", using: :btree
 
   create_table "pages", force: true do |t|
-    t.string   "title",      null: false
+    t.string   "title",                      null: false
     t.text     "body"
     t.string   "tag"
     t.string   "user_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",    null: false
+    t.integer  "user_id",                    null: false
+    t.boolean  "is_private", default: false, null: false
   end
 
   create_table "users", force: true do |t|

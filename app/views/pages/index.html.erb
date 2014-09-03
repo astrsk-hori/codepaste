@@ -14,6 +14,10 @@
 <br />
 <br />
 <br />
+<ul class="nav nav-tabs" role="tablist">
+  <li class="<%= 'active' unless @search_form.is_private? %>"><%= link_to 'Feed', pages_path("page[is_private]" => false), role: "tab" %></li>
+  <li class="<%= 'active' if @search_form.is_private? %>"><%= link_to 'Private', pages_path("page[is_private]" => true), role: "tab" %></li>
+</ul>
 <%= paginate(@pages) %>
 <table id="search_result" class="table table-hover">
   <tbody>

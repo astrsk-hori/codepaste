@@ -24,4 +24,12 @@ class Page < ActiveRecord::Base
   scope :search, -> (keyword) {
     where "body like :keyword or tag like :keyword", keyword: "%#{keyword}%"
   }
+
+  scope :opened, -> {
+    where(is_private: false)
+  }
+
+  scope :closed, -> (user_id){
+    where(is_private: true).where(user_id: user_id)
+  }
 end
