@@ -9,9 +9,10 @@
       <% if @page.user_id == current_user.id || @page.user.blank? %>
         <%= link_to 'Destroy', @page, method: :delete, data: { confirm: 'Are you sure?' } %> |
         <%= link_to 'Edit', edit_page_path(@page), {role: "button"} %>
-      <% else %>
-        <%= gravatar_for(@page.user) %>
+        <br />
+        <br />
       <% end %>
+      <%= @page.user.try(:name) || 'deleted_user' %> &nbsp;&nbsp;<%= gravatar_for(@page.user) %>
     </p>
   </span>
 </div>
