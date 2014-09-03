@@ -5,11 +5,24 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    form_keyword = params[:page].present? ? params[:page][:body] : nil
-    keyword = form_keyword.gsub(' ','%') if form_keyword.present?
+    if params[:page].present?
+      @search_form = Page.new(search_params)
+    else
+      @search_form = Page.new()
+    end
+    keyword      = @search_form.body.gsub(' ','%') if @search_form.body.present?
 
-    @pages = Page.search(keyword).includes(:user).includes(:comments).page(params[:page_no]).order('updated_at desc')
-    @search_form = Page.new(body: form_keyword)
+    @pages = Page
+              .search(keyword)
+              .includes(:user)
+              .includes(:comments)
+              .page(params[:page_no])
+              .order('updated_at desc')
+    if @search_form.is_private
+      @pages = @pages.closed(current_user.id)
+    else
+      @pages = @pages.opened
+    end
   end
 
   # GET /pages/1
@@ -77,7 +90,11 @@ class PagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      params.require(:page).permit(:title, :body, :tag, :user_name)
+      params.require(:page).permit(:title, :body, :tag, :user_name, :is_private)
+    end
+
+    def search_params
+      params.require(:page).permit(:body, :is_private)
     end
 
     def is_my_page?
