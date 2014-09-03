@@ -15,7 +15,7 @@
 <br />
 <br />
 <ul class="nav nav-tabs" role="tablist">
-  <li class="<%= 'active' unless @search_form.is_private? %>"><%= link_to 'Feed', pages_path("page[is_private]" => false), role: "tab" %></li>
+  <li class="<%= 'active' unless @search_form.is_private? %>"><%= link_to 'Feed', pages_path, role: "tab" %></li>
   <li class="<%= 'active' if @search_form.is_private? %>"><%= link_to 'Private', pages_path("page[is_private]" => true), role: "tab" %></li>
 </ul>
 <%= paginate(@pages) %>
@@ -31,7 +31,7 @@
           </strong>
         </td>
         <td><%= view_tags page.tag.split(',') if page.tag %></td>
-        <td><%= gravatar_for(page.user) %></td>
+        <td><div class="pull-right"><%= gravatar_for(page.user) %></div></td>
       </tr>
     <% end %>
   </tbody>
