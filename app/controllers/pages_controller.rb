@@ -28,6 +28,10 @@ class PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.json
   def show
+    if @page.is_private && @page.user_id != current_user.id
+      flash[:error] =  "permission denied."
+      redirect_to pages_path
+    end
     @comments = @page.comments.includes(:user)
     @comment  = Comment.new(page_id: @page.id)
   end
