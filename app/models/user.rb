@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   has_many :comments
 
   validates_presence_of :name
+
+  def last_pages
+    pages.opened.order('id desc').limit(10)
+  end
 end

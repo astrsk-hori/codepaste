@@ -1,67 +1,87 @@
-<div>
-  <span class="col-md-2">
-    <div class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">目次 <span class="caret"></span></a>
-      <ul class="dropdown-menu" role="menu">
-        <% show_html, h_list = show_markdown("# #{@page.title}\r\n\r\n#{@page.body}") %>
-        <% if h_list.present? %>
-          <% h_list.each_with_index do |v, k| %>
-            <li>
-              <%= link_to "#header_no_#{k + 1}" do %>
-                <%= %[#{"&nbsp;" * (v[:level] - 1)}].html_safe %><%= v[:text] %>
+<div id="main_area" class="row">
+  <div id="show_area" class="col-md-9">
+    <h1><%= @page.title %></h1>
+    <br />
+    <div>
+      <span class="col-md-2">
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">目次 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <% show_html, h_list = show_markdown(@page.body) %>
+            <% if h_list.present? %>
+              <% h_list.each_with_index do |v, k| %>
+                <li>
+                  <%= link_to "#header_no_#{k + 1}" do %>
+                    <%= %[#{"&nbsp;" * (v[:level] - 1)}].html_safe %><%= v[:text] %>
+                  <% end %>
+                </li>
               <% end %>
-            </li>
+            <% end %>
+          </ul>
+        </div>
+      </span>
+      <span class="col-md-10">
+        <p>
+          <%= view_tags @page.tag.split(',') %>
+        </p>
+      </span>
+    </div>
+    <div>
+      <span class="">
+        <p>
+          <%= gravatar_for(@page.user) %> &nbsp;&nbsp;<%= @page.user.try(:name) || 'deleted_user' %>が<%= @page.created_at.to_time.strftime('%Y/%m/%d') %>に投稿しました。
+          <% if @page.user_id == current_user.id || @page.user.blank? %>
+            <%= link_to '削除', @page, method: :delete, data: { confirm: 'Are you sure?' } %> |
+            <%= link_to '修正', edit_page_path(@page), {role: "button"} %>
           <% end %>
-        <% end %>
-      </ul>
+        </p>
+      </span>
     </div>
-  </span>
-  <span class="col-md-6">
-    <p>
-      <%= view_tags @page.tag.split(',') %>
-    </p>
-  </span>
-  <span class="col-md-4 text-right">
-    <p>
-      <% if @page.user_id == current_user.id || @page.user.blank? %>
-        <%= link_to 'Destroy', @page, method: :delete, data: { confirm: 'Are you sure?' } %> |
-        <%= link_to 'Edit', edit_page_path(@page), {role: "button"} %>
-        <br />
-        <br />
+    <div id="markdown">
+      <hr>
+      <p>
+      <%= show_html %>
+      </p>
+    </div>
+    <br />
+    <br />
+    <div id="comment_area">
+      <% @comments.each do |v| %>
+        <hr>
+        <div class="clearfix">
+          <div class=".pull-left">
+            <%= markdown v.comment %>
+          </div>
+          <div class=".pull-left">
+            <%= gravatar_for(v.user) %>&nbsp;&nbsp;<strong><%= v.user.try(:name)||'deleted_user' %></strong>&nbsp; <%= v.created_at.to_time.strftime('%Y/%m/%d %H:%M:%S') %>
+            <%= link_to '削除', page_comments_path(page_id: @page.id, id: v.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.id == v.user_id %>&nbsp;&nbsp;
+          </div>
+        </div>
       <% end %>
-      <%= gravatar_for(@page.user) %> &nbsp;&nbsp;<%= @page.user.try(:name) || 'deleted_user' %>が<%= @page.created_at.to_time.strftime('%Y/%m/%d') %>に投稿しました。
-    </p>
-  </span>
-</div>
-<div id="markdown">
-  <hr>
-  <p>
-  <%= show_html %>
-  </p>
-</div>
-<br />
-<br />
-<% @comments.each do |v| %>
-  <hr>
-  <div class="clearfix">
-    <div class=".pull-left">
-      <%= markdown v.comment %>
+      <br />
+      <br />
+      <hr>
+      <%= render 'comment_form' %>
     </div>
     <br />
     <br />
-    <div class=".pull-left">
-      <%= link_to 'Destroy', page_comments_path(page_id: @page.id, id: v.id), method: :delete, data: { confirm: 'Are you sure?' } %>&nbsp;&nbsp;
-      <%= gravatar_for(v.user) %>&nbsp;&nbsp;<strong><%= v.user.try(:name)||'deleted_user' %></strong>&nbsp; <%= v.created_at.to_time.strftime('%Y/%m/%d %H:%M:%S') %>
+
+    <%= link_to 'Back To List.', pages_path, {class: "btn btn-default active",  role: "button"} %>
+    <br />
+    <br />
+  </div>
+  <div id="side_area" class="col-md-3">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <%= gravatar_for(@page.user) %>&nbsp;&nbsp;<strong><%= @page.user.try(:name)||'deleted_user' %></strong>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <% @page.user.last_pages.each do |v| %>
+            <li><%= link_to v.title, page_path(v) %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
-<% end %>
-<br />
-<br />
-<hr>
-<%= render 'comment_form' %>
-<br />
-<br />
-
-<%= link_to 'Back To List.', pages_path, {class: "btn btn-default active",  role: "button"} %>
-<br />
-<br />
+</div>
