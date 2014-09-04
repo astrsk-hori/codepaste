@@ -3,7 +3,7 @@
     <div class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">目次 <span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
-        <% show_html, h_list = show_markdown("# #{@page.title}\n #{@page.body}") %>
+        <% show_html, h_list = show_markdown("# #{@page.title}\r\n\r\n#{@page.body}") %>
         <% if h_list.present? %>
           <% h_list.each_with_index do |v, k| %>
             <li>
@@ -16,12 +16,12 @@
       </ul>
     </div>
   </span>
-  <span class="col-md-8">
+  <span class="col-md-6">
     <p>
       <%= view_tags @page.tag.split(',') %>
     </p>
   </span>
-  <span class="col-md-2 text-right">
+  <span class="col-md-4 text-right">
     <p>
       <% if @page.user_id == current_user.id || @page.user.blank? %>
         <%= link_to 'Destroy', @page, method: :delete, data: { confirm: 'Are you sure?' } %> |
@@ -29,7 +29,7 @@
         <br />
         <br />
       <% end %>
-      <%= @page.user.try(:name) || 'deleted_user' %> &nbsp;&nbsp;<%= gravatar_for(@page.user) %>
+      <%= gravatar_for(@page.user) %> &nbsp;&nbsp;<%= @page.user.try(:name) || 'deleted_user' %>が<%= @page.created_at.to_time.strftime('%Y/%m/%d') %>に投稿しました。
     </p>
   </span>
 </div>
