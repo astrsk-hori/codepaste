@@ -1,10 +1,28 @@
 module ApplicationHelper
   class SyntaxHighlight < Redcarpet::Render::HTML
+    attr_accessor :header_list, :header_count
+
+    def initialize
+      self.header_list  = []
+      self.header_count = 0
+      super
+    end
+
     def block_code(code, language)
       language = language || :html
       CodeRay.scan(code, language).div
     rescue
       CodeRay.scan(code, :html).div
+    end
+
+    def header(text, header_level)
+      self.header_list << {text: text, level: header_level}
+      self.header_count += 1
+      %[<h#{header_level} id="header_no_#{self.header_count}"><a href="#header_no_#{self.header_count}">#{text}</a></h#{header_level}>]
+    end
+
+    def get_header_list
+      self.header_list
     end
   end
 
@@ -38,5 +56,14 @@ module ApplicationHelper
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?d=monsterid"
     image_tag(gravatar_url, alt: user.name, class: "gravatar userIcon")
+  end
+
+  def header_list(text)
+    markdown = Redcarpet::Markdown.new(
+      @syntax_high_light=SyntaxHighlight.new,
+      fenced_code_blocks: true,
+    )
+    markdown.render(text)
+    @syntax_high_light.get_header_list
   end
 end

@@ -1,10 +1,25 @@
 <div>
+  <span class="col-md-2">
+      <ul class="nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">目次 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <% h_list = header_list("# #{@page.title}\n #{@page.body}") %>
+            <% if h_list.present? %>
+              <% h_list.each_with_index do |v, k| %>
+                <li><%= link_to v[:text], "#header_no_#{k + 1}" %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+  </span>
   <span class="col-md-8">
     <p>
       <%= view_tags @page.tag.split(',') %>
     </p>
   </span>
-  <span class="text-right">
+  <span class="col-md-2 text-right">
     <p>
       <% if @page.user_id == current_user.id || @page.user.blank? %>
         <%= link_to 'Destroy', @page, method: :delete, data: { confirm: 'Are you sure?' } %> |
@@ -19,11 +34,7 @@
 <div id="markdown">
   <hr>
   <p>
-    <%= markdown "# #{@page.title}" %>
-  </p>
-
-  <p>
-    <%= markdown @page.body %>
+  <%= markdown "# #{@page.title}\n #{@page.body}" %>
   </p>
 </div>
 <br />
