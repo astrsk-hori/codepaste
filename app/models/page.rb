@@ -5,6 +5,10 @@ class Page < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :body
 
+  default_scope -> {
+    where(is_private: false)
+  }
+
   scope :search_body, ->(keyword) {
     if keyword.present?
       where "body like :keyword", keyword: "%#{keyword}%"
@@ -30,6 +34,6 @@ class Page < ActiveRecord::Base
   }
 
   scope :closed, -> (user_id){
-    where(is_private: true).where(user_id: user_id)
+    unscope(where: :is_private).where(is_private: true).where(user_id: user_id)
   }
 end
