@@ -41,6 +41,22 @@ module ApplicationHelper
     markdown.render(text).gsub('table', 'table class="table table-hover table-bordered"').html_safe
   end
 
+  def show_markdown(text)
+    markdown = Redcarpet::Markdown.new(
+      @syntax_high_light=SyntaxHighlight.new,
+      autolink: true,
+      space_after_headers: true,
+      fenced_code_blocks: true,
+      tables: true,
+      strikethrough: true,
+      superscript: true
+
+    )
+    # Redcarpetのtableにclass指定できないので生成されたHTMLで無理やりclass付与
+    result_html = markdown.render(text).gsub('table', 'table class="table table-hover table-bordered"').html_safe
+    [result_html, @syntax_high_light.get_header_list]
+  end
+
   def view_tags(tags=[])
     result = ''
     tags.each do |v|
@@ -56,14 +72,5 @@ module ApplicationHelper
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?d=monsterid"
     image_tag(gravatar_url, alt: user.name, class: "gravatar userIcon")
-  end
-
-  def header_list(text)
-    markdown = Redcarpet::Markdown.new(
-      @syntax_high_light=SyntaxHighlight.new,
-      fenced_code_blocks: true,
-    )
-    markdown.render(text)
-    @syntax_high_light.get_header_list
   end
 end
